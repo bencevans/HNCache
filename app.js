@@ -30,6 +30,7 @@ if(typeof process.env.REDIS_AUTH !== "undefined") {
   })
 } else if (typeof process.env.REDISTOGO_URL !== "undefined") {
   redis.auth(rtg.auth.split(":")[1]);
+  startWorker();
 } else {
   startWorker();
 }
