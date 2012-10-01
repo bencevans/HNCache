@@ -9,21 +9,27 @@ var http = require('http')
 , url = require('url')
 , hn = require('./lib/hn')
 , request = require('request')
-, _ = require('underscore')
-, redis = require('redis').createClient(process.env.REDIS_PORT || null, process.env.REDIS_HOST || null);
+, _ = require('underscore');
+
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = require("redis").createClient(rtg.port, rtg.hostname);
+} else {
+  var redis = require('redis').createClient(process.env.REDIS_PORT || null, process.env.REDIS_HOST || null);
+}
 
 redis.on('connect', function() {
   console.log('Connected to Redis');
 });
 
 if(typeof process.env.REDIS_AUTH !== "undefined") {
-  redis.auth(process.env.REDIS_AUTH, function(err) {
+  redis.auth((typeof rtg !== "undefined") ? rtg.auth.split(":")[1] : process.env.REDIS_AUTH, function(err) {
     if(err) return console.log(err);
     console.log('Redis Authenticated');
     startWorker();
   })
 } else if (typeof process.env.REDISTOGO_URL !== "undefined") {
-
+  redis.auth(rtg.auth.split(":")[1]);
 } else {
   startWorker();
 }
