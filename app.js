@@ -121,7 +121,7 @@ function updateItems() {
               console.log(item.id + ' : ' + item.title + ' : Cached');
             });
             redis.set(config.redis.prev + item.id.toString() + ':info', item, function (err) {
-
+              if(err) console.error(err);
             });
           });
       });
