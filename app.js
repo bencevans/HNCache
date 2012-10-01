@@ -75,6 +75,9 @@ app.get('/:itemId', function(req, res, next) {
   redis.get(config.redis.prev + req.params.itemId, function(err, body) {
     redis.get(config.redis.prev + req.params.itemId + ':info', function(err, info) {
 
+      if(!info || !info.url)
+        return res.send(500);
+
       if(!body)
         return next();
 
