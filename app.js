@@ -23,12 +23,12 @@ redis.on('connect', function() {
 });
 
 if(typeof process.env.REDIS_AUTH !== "undefined") {
-  redis.auth((typeof rtg !== "undefined") ? rtg.auth.split(":")[1] : process.env.REDIS_AUTH, function(err) {
+  redis.auth(process.env.REDIS_AUTH, function(err) {
     if(err) return console.log(err);
     console.log('Redis Authenticated');
     startWorker();
   })
-} else if (typeof process.env.REDISTOGO_URL !== "undefined") {
+} else if (process.env.REDISTOGO_URL) {
   redis.auth(rtg.auth.split(":")[1]);
   startWorker();
 } else {
