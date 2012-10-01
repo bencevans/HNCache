@@ -11,11 +11,7 @@ var http = require('http')
 , request = require('request')
 , _ = require('underscore');
 
-var config = {
-  redis: {
-    prev:"hncache_"
-  }
-}
+var config = require(__dirname + '/config.js');
 
 if (process.env.REDISTOGO_URL) {
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
@@ -57,8 +53,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
-var config = require(__dirname + '/config.js');
 
 // Rendered Static Pages Route.
 app.get(/^\/([about|contact|plugins|sponsor]+)?$/, function (req, res, next) {
