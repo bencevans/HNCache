@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HNCache</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+	<header>
+		<div class=container>
+			<a href="/"><h1><span style="color:#F60;">HN</span>Cache</h1></a>
+			<nav>
+				{{#pages}}
+				<li{{#if current}} class=current{{/if}}><a href="/{{slug}}">{{name}}</a></li>
+
+				{{/pages}}
+			</nav>
+			<div class=clear></div>
+		</div>
+	</header>
+	<div class=container>
+		{{{body}}}
+	</div>
+	<footer>
+		<div class=container>
+			<span class=by>A Project by <a href="http://bensbit.co.uk">Ben Evans</a></span>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+Allow: /about
+Allow: /support
+Allow: /ideasimprovements
+Allow: /contact
