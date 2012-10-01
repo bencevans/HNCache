@@ -75,8 +75,14 @@ app.get('/:itemId', function(req, res, next) {
   redis.get(config.redis.prev + req.params.itemId, function(err, body) {
     redis.get(config.redis.prev + req.params.itemId + ':info', function(err, info) {
 
+      try {
+        info = JSON.parse(info);
+      } catch (e) {
+        return next(e);
+      }
+
       if(!info || !info.url)
-        return res.send(500);
+        return res.send(404)
 
       if(!body)
         return next();
@@ -120,7 +126,7 @@ function updateItems() {
                 return console.error(err);
               console.log(item.id + ' : ' + item.title + ' : Cached');
             });
-            redis.set(config.redis.prev + item.id.toString() + ':info', item, function (err) {
+            redis.set(config.redis.prev + item.id.toString() + ':info', JSON.stringify(item), function (err) {
               if(err) console.error(err);
             });
           });
