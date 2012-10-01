@@ -11,6 +11,12 @@ var http = require('http')
 , request = require('request')
 , _ = require('underscore');
 
+var config = {
+  redis: {
+    prev:"hncache_"
+  }
+}
+
 if (process.env.REDISTOGO_URL) {
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
   var redis = require("redis").createClient(rtg.port, rtg.hostname);
