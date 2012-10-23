@@ -7,7 +7,7 @@ var http = require('http')
 , cheerio = require('cheerio')
 , fs = require('fs')
 , url = require('url')
-, hn = require('./lib/hn')
+, hn = require('hn.js')
 , request = require('request')
 , _ = require('underscore');
 
