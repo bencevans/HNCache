@@ -1,16 +1,17 @@
 
-// Require 
-var http = require('http')
-, path = require('path')
-, express = require('express')
-, app = express()
-, cheerio = require('cheerio')
-, fs = require('fs')
-, url = require('url')
-, hn = require('hn.js')
-, request = require('request')
-, _ = require('underscore');
+// Require Stuff
+var http = require('http'),
+path = require('path'),
+express = require('express'),
+app = express(),
+cheerio = require('cheerio'),
+fs = require('fs'),
+url = require('url'),
+hn = require('hn.js'),
+request = require('request'),
+_ = require('underscore');
 
+// Setup Config
 var config = require(__dirname + '/config.js');
 
 if (process.env.REDISTOGO_URL) {
@@ -29,7 +30,7 @@ if(typeof process.env.REDIS_AUTH !== "undefined") {
     if(err) return console.log(err);
     console.log('Redis Authenticated');
     startWorker();
-  })
+  });
 } else if (process.env.REDISTOGO_URL) {
   redis.auth(rtg.auth.split(":")[1]);
   startWorker();
@@ -37,6 +38,7 @@ if(typeof process.env.REDIS_AUTH !== "undefined") {
   startWorker();
 }
 
+// Web (Express) Setup
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -45,8 +47,8 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router)
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(app.router);
+  app.use(express['static'](path.join(__dirname, 'public')));
 });
 
 app.configure('development', function(){
@@ -73,20 +75,20 @@ app.get('/:itemId', function(req, res, next) {
       }
 
       if(!info || !info.url)
-        return res.send(404)
+        return res.send(404);
 
       if(!body)
         return next();
 
       $ = cheerio.load(body);
 
-      $('title').html($('title').html() + config.appendTitle)
+      $('title').html($('title').html() + config.appendTitle);
       $('[href]').each(function() {
         $(this).attr('href', url.resolve(info.url, $(this).attr('href')));
-      })
+      });
       $('[src]').each(function() {
         $(this).attr('src', url.resolve(info.url, $(this).attr('src')));
-      })
+      });
 
       $('body').html(config.cacheHeader + '<div style="position:relative;top:80px;">' + $('body').html() + '</div>');
       res.send($.html());
