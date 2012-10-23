@@ -55,18 +55,9 @@ app.configure('development', function(){
 
 
 // Rendered Static Pages Route.
-app.get(/^\/([about|contact|plugins|sponsor]+)?$/, function (req, res, next) {
+app.get("/", function (req, res, next) {
 
-  var currentPageSlug = (req.params[0]) ? req.params[0] : "";
-  var pages = [{slug:"", name:"Home"}, {slug:"about", name:"About"}, {slug:"plugins", name:"Plugins"}, {slug:"sponsor", name:"Sponsor"}, {slug:"contact", name:"Contact"}]
-
-  for (var i = pages.length - 1; i >= 0; i--) {
-    if(currentPageSlug == pages[i].slug)
-      pages[i].current = true;
-  };
-
-    // If no match [0], render index (home)
-    res.render((req.params[0]) ? req.params[0] : 'index', {pages:pages});
+  res.sendfile('./public/index.html');
   });
 
 
