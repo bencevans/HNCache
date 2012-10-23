@@ -58,9 +58,8 @@ app.configure('development', function(){
 
 // Rendered Static Pages Route.
 app.get("/", function (req, res, next) {
-
-  res.sendfile('./public/index.html');
-  });
+  res.sendfile(path.resolve(__dirname, './public/index.html'));
+});
 
 
 app.get('/:itemId', function(req, res, next) {
