@@ -1,6 +1,8 @@
-#HNCache.chromeextension
+#HNCache
 
-A chrome extension that generates links for each [Hacker News](http://news.ycombinator.com) item to a cached copy of the external article/resource.
+A server/worker that caches each item posted to [Hacker News](http://news.ycombinator.com) so that if the original resource goes down due to traffic or some other reason then the disscussion can continue.
+
+The resource is available by visiting http://hncache.bensbit.co.uk/{ITEM_ID} or if you are hosting your own then http://{YOUR_URL}/{ITEM_ID}.
 
 Links: [Repo](https://github.com/bencevans/HNCache), [Issues](https://github.com/bencevans/HNCache/issues), [Site](http://hncache.bensbit.co.uk)
 
