@@ -83,10 +83,12 @@ app.get('/:itemId', function(req, res, next) {
 
       $('title').html($('title').html() + config.appendTitle);
       $('[href]').each(function() {
-        $(this).attr('href', url.resolve(info.url, $(this).attr('href')));
+        if($(this).attr('src'))
+          $(this).attr('href', url.resolve(info.url, $(this).attr('href')));
       });
-      $('[src]').each(function() {
-        $(this).attr('src', url.resolve(info.url, $(this).attr('src')));
+      $('[src]').each(function(index, bob) {
+        if($(this).attr('src'))
+          $(this).attr('src', url.resolve(info.url, $(this).attr('src')));
       });
 
       $('body').html(config.cacheHeader + '<div style="position:relative;top:80px;">' + $('body').html() + '</div>');
