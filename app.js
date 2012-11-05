@@ -91,6 +91,18 @@ app.get('/:itemId', function(req, res, next) {
           $(this).attr('src', url.resolve(info.url, $(this).attr('src')));
       });
 
+      if(req.query.textonly){
+        $('[src]').each(function(index, bob) {
+          $(this).remove();
+        });
+        $('script').each(function(index, bob) {
+          $(this).remove();
+        });
+        $('link[href]').each(function(index, bob) {
+          $(this).remove();
+        });
+      }
+
       $('body').html(config.cacheHeader + '<div style="position:relative;top:80px;">' + $('body').html() + '</div>');
       res.send($.html());
 
