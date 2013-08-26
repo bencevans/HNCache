@@ -24,7 +24,7 @@ module.exports = function(req, res, next) {
       }
 
       if(!info || !info.url)
-        return res.send(404);
+        return next();
 
       if(!body)
         return next();

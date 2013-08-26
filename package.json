@@ -11,7 +11,8 @@
     "request": "~2.11.1",
     "hbs": "~1.0.5",
     "hn": "0.0.0",
-    "hn.js": "0.0.1"
+    "hn.js": "0.0.1",
+    "express-errorstrap": "~0.1.0"
   },
   "devDependencies": {},
   "scripts": {

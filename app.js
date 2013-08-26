@@ -30,10 +30,12 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express['static'](__dirname + '/public'));
+  app.use(require('express-errorstrap').notFound());
+  app.use(require('express-errorstrap').error());
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+  // app.use(express.errorHandler());
 });
 
 
