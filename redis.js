@@ -12,18 +12,21 @@ var config = require('./config.js');
 
 var host = process.env.REDIS_HOST || null;
 var port = process.env.REDIS_PORT || null;
+var auth = process.env.REDIS_AUTH || null;
 var options = {};
 
-if(typeof process.env.REDIS_AUTH !== "undefined") {
-  options.auth_pass = process.env.REDIS_AUTH;
-} else if (process.env.REDISTOGO_URL) {
+if (process.env.REDISTOGO_URL) {
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
   host = rtg.hostname;
   port = rtg.port;
-  options.auth_pass = rtg.auth.split(":")[1];
+  auth = rtg.auth.split(":")[1];
 }
 
 var redis = require('redis').createClient(port, host, options);
+
+if (auth) {
+  redis.auth(auth);
+}
 
 /**
  * Exports
