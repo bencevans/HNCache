@@ -13,7 +13,6 @@ var request = require('request');
 var _ = require('underscore');
 var config = require(__dirname + '/config.js');
 var redis = require('./redis');
-var worker = require('./worker');
 
 /**
  * Express App Config
@@ -46,17 +45,3 @@ var server = http.createServer(app).listen(app.get('port'), function() {
 });
 
 
-/**
- * Worker Kickstart
- */
-
-function startWorker() {
-  worker.updateItems();
-  setInterval(function() {
-    worker.updateItems();
-  }, 1000 * 60 * 10);
-}
-
-redis.on('connect', function() {
-  startWorker();
-});

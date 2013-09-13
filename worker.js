@@ -44,3 +44,20 @@ function updateItems() {
  */
 
 module.exports.updateItems = updateItems;
+
+function startWorker() {
+  updateItems();
+  setInterval(function() {
+    updateItems();
+  }, 1000 * 60 * 10);
+}
+
+/**
+ * Worker Kickstart
+ */
+
+if(!module.parent) {
+  redis.on('connect', function() {
+    startWorker();
+  });
+}
