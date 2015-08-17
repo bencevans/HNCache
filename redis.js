@@ -10,8 +10,8 @@ var config = require('./config.js');
  * Redis Client
  */
 
-var host = process.env.REDIS_HOST || null;
-var port = process.env.REDIS_PORT || null;
+var host = process.env.REDIS_PORT_6379_TCP_ADDR || process.env.REDIS_HOST || null;
+var port = process.env.REDIS_PORT_6379_TCP_PORT || process.env.REDIS_PORT || null;
 var auth = process.env.REDIS_AUTH || null;
 var options = {};
 
